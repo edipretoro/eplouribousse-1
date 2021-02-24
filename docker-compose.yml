@@ -1,0 +1,8 @@
+version: "3"
+services:
+  eplouribousse:
+    image: edipretoro/eplouribousse:01
+    build: .
+    container_name: eplouribousse
+    volumes:
+      - ./var/db.sqlite3:/app/db.sqlite3
