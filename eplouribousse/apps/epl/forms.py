@@ -4,6 +4,7 @@ from .models import ItemRecord, Instruction, Library, EXCLUSION_CHOICES, Feature
 
 from django.utils.translation import ugettext_lazy as _
 
+
 class PositionForm(forms.ModelForm):
     class Meta:
         model = ItemRecord
@@ -18,9 +19,12 @@ class PositionForm(forms.ModelForm):
 class InstructionForm(forms.ModelForm):
     class Meta:
         REM_CHOICES =('',''),
-        if Library.objects.all().exclude(name ='checker'):
-            for l in Library.objects.all().exclude(name ='checker').order_by('name'):
-                REM_CHOICES += (l.name, l.name),
+        try:
+            if Library.objects.all().exclude(name ='checker'):
+                for l in Library.objects.all().exclude(name ='checker').order_by('name'):
+                    REM_CHOICES += (l.name, l.name),
+        except Exception as a:
+            pass
         model = Instruction
         exclude = ('sid', 'name', 'bound',)
         widgets = {

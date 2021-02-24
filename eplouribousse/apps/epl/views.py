@@ -45,7 +45,8 @@ def coll_cn(e):
 try:
     replymail =ReplyMail.objects.all().order_by('pk')[0].sendermail
 except:
-    replymail =BddAdmin.objects.all().order_by('pk')[0].contact
+    # replymail =BddAdmin.objects.all().order_by('pk')[0].contact
+    replymail = 'noreply@localhost'
 
 
 def logstatus(request):
@@ -64,7 +65,10 @@ def home(request):
 
     "Homepage"
 
-    project = Project.objects.all().order_by('pk')[0].name
+    try:
+        project = Project.objects.all().order_by('pk')[0].name
+    except Exception as e:
+        pass
 
     #Feature input :
     i = Feature()

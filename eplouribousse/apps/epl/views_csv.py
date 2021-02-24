@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from .models import *
 from django.utils.translation import ugettext as _
 
-project = Project.objects.all().order_by('pk')[0].name
+
+try:
+    project = Project.objects.all().order_by('pk')[0].name
+except Exception as e:
+    project = "Fake Project Name"
 
 def simple_csv(request, lid, xlid, recset, what, length):
 

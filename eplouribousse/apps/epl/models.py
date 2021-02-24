@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db import connection
 
 
 class Project(models.Model):
@@ -22,9 +23,12 @@ class Library(models.Model):
         return self.name
 
 LIBRARY_CHOICES = ('checker','checker'),
-if Library.objects.all().exclude(name ='checker'):
-    for l in Library.objects.all().exclude(name ='checker').order_by('name'):
-        LIBRARY_CHOICES += (l.name, l.name),
+try:
+    if Library.objects.all().exclude(name ='checker'):
+        for l in Library.objects.all().exclude(name ='checker').order_by('name'):
+            LIBRARY_CHOICES += (l.name, l.name),
+except Exception as e:
+    pass
 
 #Reasons to exclude an item record (see under ; class : ItemRecord,
 #field : excl) :
@@ -35,8 +39,11 @@ class Exclusion(models.Model):
         return self.label
 
 EXCLUSION_CHOICES = ('', ''),
-for e in Exclusion.objects.all().order_by('label'):
-    EXCLUSION_CHOICES += (e.label, e.label),
+try:
+    for e in Exclusion.objects.all().order_by('label'):
+        EXCLUSION_CHOICES += (e.label, e.label),
+except Exception as e:
+    pass
 EXCLUSION_CHOICES += ("Autre (Commenter)", _("Autre (Commenter)")),
 
 #Ranking choices :

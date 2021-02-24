@@ -12,7 +12,10 @@ from django.core.files.storage import FileSystemStorage
 
 from django.utils.translation import ugettext as _
 
-project = Project.objects.all().order_by('pk')[0].name
+try:
+    project = Project.objects.all().order_by('pk')[0].name
+except Exception as e:
+    project = "Fake Project Name"
 styles = getSampleStyleSheet()
 
 def pdfedition(request, sid, lid):
